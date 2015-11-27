@@ -487,8 +487,8 @@ function handleLogin() {
 //jsonDataObjGlobal 
 function getDataList(){
    alert("getDataList");
-	var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
-	var getData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
+	//var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
+	var grnUserData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
 	var grnUserObj=JSON.stringify(dataObj);
 	
 	if(grnUserObj != '') {
@@ -510,16 +510,16 @@ function getDataList(){
 				$.ajax({
 					type : 'POST',
 				   url:appUrl,
-				   data:{action:'BASEAPP',id:dataObj},
+				   data:{action:'BASEAPP',id:grnUserObj},
 				   success:function(data){
 				   		
 				   		var responseJson = $.parseJSON(data);
-				   		$('#salesOrderMainDiv').html('');
+				   		$('#addLogTimeMainDiv').html('');
 				   		
 				   		var tbodyObj='<tbody>';
 				   		var dataArray=[];
 				   		jQuery.each(dataArray, function(index,value) {
-				        	var jsonDataObjGlobal=value;
+				        	//var jsonDataObjGlobal=value;
 				        	var id=jsonDataObjGlobal["id"];
 				        	var fullname=jsonDataObjGlobal["fullname"];
 				        	var elecconnno=jsonDataObjGlobal["elecconnno"];
