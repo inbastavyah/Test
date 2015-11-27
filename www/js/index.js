@@ -501,8 +501,12 @@ function getDataList(){
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
-			$.mobile.changePage('#view-all-data','slide');
-			navigator.notification.alert(appRequiresWiFi, function() {});
+			
+			if(window.localStorage["solocal"] == 1){
+				
+				$.mobile.changePage('#view-all-data','slide');
+				navigator.notification.alert(appRequiresWiFi, function() {});
+			}
 			else if(window.localStorage["solocal"] == 0){
 			
 				$.ajax({
@@ -515,47 +519,15 @@ function getDataList(){
 				   		$('#AllDataMainDiv').html('');
 				   		
 				   		var tbodyObj='<tbody>';
-				   		var time_cats_arr=[];
-				   		jQuery.each(time_cats_arr, function(index,value) {
-				        	var jsonObj=value;
-				        	var id=jsonObj["id"];
-				        	var fullname=jsonObj["fullname"];
-				        	var title=jsonObj["title"];
-				        	var grn_roles_id=jsonObj["grn_roles_id"];
-				        	var revision=jsonObj["revision"];
-				        	var status=jsonObj["status"];
-				        	
-				        	tbodyObj+='<tr>'+
-						                 '<td class="order-p-icon">'+
-						                     '<span class="process-icon cm-10">'+
-						                         '<img class="icon-img" src="img/'+timeCats+'.png" id="timer_img_spOrderIdReplace_'+timeCats+'" data-order="spOrderIdReplace" data-timecat="'+timeCats+'" data-action="clock" onclick="logTimer(this);return false;">'+
-						                     '</span>'+
-						                 '</td>'+
-						                 '<td>'+
-						                     '<span id="orderId_spOrderIdReplace" class="timer">--:-- hrs</span>'+
-						                 '</td>'+
-						                 '<td class="order-t-icon">'+
-						                     '<a class="timer timer-icon clock" id="timer_spOrderIdReplace_'+timeCats+'" data-icon="flat-time" data-order="spOrderIdReplace" data-timecat="'+timeCats+'" data-action="clock" onclick="logTimer(this);return false;">'+
-											 '</a>'+
-						                 '</td>'+
-						             '</tr>';
-				   		});
-				   		tbodyObj+='</tbody>';
-				   		
-				   		salse_orders_arr=responseJson.sales_orders;
-				   		jQuery.each(salse_orders_arr, function(index,value) {
-				        	var jsonObj=value;
-				        	var id=jsonObj["id"];
-				        	var grn_companies_id=jsonObj["grn_companies_id"];
-				        	var sp_manager=jsonObj["sp_manager"];
-				        	var sp_salesorderNumber=jsonObj["sp_salesorderNumber"];
-				        	var sp_jobName=jsonObj["sp_jobName"];
-				        	var grn_colors_id=jsonObj["grn_colors_id"];
-				        	//var time_running_status=jsonObj["time_running_status"];
-				        	//var grn_status_id=jsonObj["grn_status_id"];
-				        	var HexColor=jsonObj["HexColor"];
-				        	//var tbodyObjCurr = tbodyObj.replace("spOrderIdReplace", id);
-				        	var tbodyObjCurr = tbodyObj.replace(/spOrderIdReplace/g,id);
+				   		var dataArray=[];
+				   		jQuery.each(dataArray, function(index,value) {
+				        	//var jsonObj=value;
+				        	var id=jsonDataObjGlobal["id"];
+				        	var fullname=jsonDataObjGlobal["fullname"];
+				        	var elecconnno=jsonDataObjGlobal["elecconnno"];
+				        	var address=jsonDataObjGlobal["address"];
+				        	var taluka=jsonDataObjGlobal["taluka"];
+				        	var district=jsonDataObjGlobal["district"];
 				        	
 				        	var divObj='<div id="sales-table-div_'+id+'" class="sales-table-div">'+
 					                		'<table id="sp_order_'+id+'"  class="order-box ui-table" style="border: 1px solid #EEE8E8;" data-role="table" data-mode="" class="ui-responsive table-stroke sales-table">'+
@@ -563,14 +535,14 @@ function getDataList(){
 										         '<tr>'+
 										             '<th class="sp-order " colspan="3" id="sp_order_name_'+id+'">'+
 										             		
-										             	'<div id="so_details_box" class="so-details-box" style="border-color: #'+HexColor+';">'+
+										             	'<div id="so_details_box" class="so-details-box" style="border-color: #'+fullname+';">'+
 									                    	'<div class="so-color-box" style="background-color: #'+HexColor+';">'+
 									                    		'<span style="">&nbsp;</span>'+
 									                        '</div>'+
 									                        '<div class="so-name-box" >'+
-									                        	'<span class="" id="so_name">'+sp_jobName+' #'+sp_salesorderNumber+'</span>'+
+									                        	'<span class="" id="so_name">'+fullname+' #'+elecconnno+'</span>'+
 									                        	'<a href="#" onclick="getLogTimeListOfOrder(this); return false;" class="process-report pull-right" data-order="'
-									                        		+id+'" data-oname="'+sp_jobName+' #'+sp_salesorderNumber+'" data-hexcolor="#'+HexColor+'" >Report'+
+									                        		+address+'" data-oname="'+taluka+' #'+district+'" data-hexcolor="#'+district+'" >Report'+
 												                 '</a>'+
 									                        '</div>'+
 									                    '</div>'+	
@@ -582,16 +554,16 @@ function getDataList(){
 										     '<tfoot>'+
 										         '<tr>'+
 										             '<td colspan="3" class="td-danger">'+
-										             	'<a href="#" class="order-close" data-order="'+sp_salesorderNumber+'" data-id="'+id+'" onclick="closeSalesOrder(this)"><span>CLOSE</span></a>'+
+										             	'<a href="#" class="order-close" data-order="'+district+'" data-id="'+id+'" onclick="closeSalesOrder(this)"><span>CLOSE</span></a>'+
 										             '</td>'+ 
 										         '</tr>'+
 										     '</tfoot>'+
 										 '</table>'+
 									 '</div>';
 				        	
-				        	$('#salesOrderMainDiv').append(divObj);
+				        	$('#AllDataMainDiv').append(divObj);
 				   		});
-				   		hideAllTablesData();
+				   		//hideAllTablesData();
 				   		hideModal();
 				   		
 				   		if(salse_orders_arr.length <= 0){
@@ -603,7 +575,7 @@ function getDataList(){
 				   		$.mobile.changePage('#view-all-data','slide');
 					},
 					error:function(data,t,f){
-						hideModal();
+						//hideModal();
 						navigator.notification.alert(appRequiresWiFi, function() {});	
 					}
 				});
