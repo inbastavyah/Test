@@ -489,7 +489,7 @@ function getDataList(){
    alert("getDataList");
 	var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
 	var getData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
-	var grnUserObj=JSON.stringify(jsonDataObjGlobal);
+	var grnUserObj=JSON.stringify(dataObj);
 	
 	if(grnUserObj != '') {
 		var connectionType=checkConnection();
@@ -501,28 +501,25 @@ function getDataList(){
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
-			
-			if(window.localStorage["solocal"] == 1){
-				//getSalesOrders();
-				$.mobile.changePage('#view-all-data','slide');
-			}
+			$.mobile.changePage('#view-all-data','slide');
+			navigator.notification.alert(appRequiresWiFi, function() {});
 			else if(window.localStorage["solocal"] == 0){
 			
 				$.ajax({
 					type : 'POST',
 				   url:appUrl,
-				   data:{action:'getSalesOrders',grn_user:grnUserObj},
+				   data:{action:'BASEAPP',id:dataObj},
 				   success:function(data){
 				   		
 				   		var responseJson = $.parseJSON(data);
-				   		$('#salesOrderMainDiv').html('');
+				   		$('#AllDataMainDiv').html('');
 				   		
 				   		var tbodyObj='<tbody>';
 				   		var time_cats_arr=[];
 				   		jQuery.each(time_cats_arr, function(index,value) {
 				        	var jsonObj=value;
 				        	var id=jsonObj["id"];
-				        	var timeCats=jsonObj["timeCats"];
+				        	var fullname=jsonObj["fullname"];
 				        	var title=jsonObj["title"];
 				        	var grn_roles_id=jsonObj["grn_roles_id"];
 				        	var revision=jsonObj["revision"];
