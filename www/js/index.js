@@ -484,11 +484,11 @@ function handleLogin() {
 	return false;
 }
 
-
+//jsonDataObjGlobal
 function getDataList(){
    alert("getDataList");
 	//var grnUserData={"ID":"1","grn_companies_id":"1","permissions":"7"}; // Testing Data
-	var grnUserData={"ID":window.localStorage.getItem("ID"),"grn_companies_id":window.localStorage.getItem("grn_companies_id"),"permissions":window.localStorage.getItem("permissions")};
+	var getData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
 	var grnUserObj=JSON.stringify(grnUserData);
 	
 	if(grnUserObj != '') {
@@ -496,12 +496,8 @@ function getDataList(){
 		//var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-			if(window.localStorage["solocal"] == 1){
-				$.mobile.changePage('#view-all-data','slide');
-			}
-			else if(window.localStorage["solocal"] == 0){
-				navigator.notification.alert(appRequiresWiFi, function() {});
-			}
+			$.mobile.changePage('#view-all-data','slide');
+			navigator.notification.alert(appRequiresWiFi, function() {});
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
