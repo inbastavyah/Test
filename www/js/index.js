@@ -501,13 +501,11 @@ function getDataList(){
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
-			
 			if(window.localStorage["solocal"] == 1){
-				
 				$.mobile.changePage('#view-all-data','slide');
 				navigator.notification.alert(appRequiresWiFi, function() {});
 			}
-			else if(window.localStorage["solocal"] == 0){
+			//else if(window.localStorage["solocal"] == 0){
 			
 				$.ajax({
 					type : 'POST',
@@ -521,7 +519,7 @@ function getDataList(){
 				   		var tbodyObj='<tbody>';
 				   		var dataArray=[];
 				   		jQuery.each(dataArray, function(index,value) {
-				        	//var jsonObj=value;
+				        	var jsonDataObjGlobal=value;
 				        	var id=jsonDataObjGlobal["id"];
 				        	var fullname=jsonDataObjGlobal["fullname"];
 				        	var elecconnno=jsonDataObjGlobal["elecconnno"];
@@ -566,13 +564,6 @@ function getDataList(){
 				   		//hideAllTablesData();
 				   		hideModal();
 				   		
-				   		if(salse_orders_arr.length <= 0){
-				   			navigator.notification.alert("No sales order to show or try again after sometime.", function() {});	
-				   		}
-				   		
-				   		window.localStorage["solocal"] = 1;
-				   		//getSalesOrderList();
-				   		$.mobile.changePage('#view-all-data','slide');
 					},
 					error:function(data,t,f){
 						//hideModal();
@@ -580,13 +571,12 @@ function getDataList(){
 					}
 				});
 			
-			}
+			//}
 		}
 		
 	}
 	else{
-		logout();
-		navigator.notification.alert("Please login again.", function() {});
+		
 	}
 }
 
