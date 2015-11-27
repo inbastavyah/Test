@@ -490,7 +490,7 @@ function getDataList(){
 	//var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
 	var grnUserData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
 	var grnUserObj=JSON.stringify(dataObj);
-	
+	alert(grnUserData+"......"+grnUserObj);
 	if(grnUserObj != '') {
 		var connectionType=checkConnection();
 		//var connectionType="WiFi connection";//For Testing
@@ -514,7 +514,7 @@ function getDataList(){
 				   success:function(data){
 				   		
 				   		var responseJson = $.parseJSON(data);
-				   		$('#addLogTimeMainDiv').html('');
+				   		$('#salesOrderMainDiv').html('');
 				   		
 				   		var tbodyObj='<tbody>';
 				   		var dataArray=[];
