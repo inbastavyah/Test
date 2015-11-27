@@ -1092,7 +1092,8 @@ function getPicture(){
 		alert("onSuccess...1");
 		var image = document.getElementById('myImage');
 	    image.src = "data:image/jpeg;base64," + imageData;
-	    image.css('height', '200px', 'width', '200px' );
+	    image.css('height', '200px');
+	    image.css('width', '200px');
 	    
 	    var myImageUrl = document.getElementById('myImageUrl');
 	     myImageUrl.value="data:image/jpeg;base64," + imageData;
