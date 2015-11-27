@@ -484,12 +484,12 @@ function handleLogin() {
 	return false;
 }
 
-//jsonDataObjGlobal
+//jsonDataObjGlobal 
 function getDataList(){
    alert("getDataList");
-	//var grnUserData={"ID":"1","grn_companies_id":"1","permissions":"7"}; // Testing Data
+	var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
 	var getData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
-	var grnUserObj=JSON.stringify(grnUserData);
+	var grnUserObj=JSON.stringify(jsonDataObjGlobal);
 	
 	if(grnUserObj != '') {
 		var connectionType=checkConnection();
