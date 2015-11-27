@@ -868,7 +868,7 @@ function getBaseappDataList(){
     	   alert("len--"+len);
                     if(len>0){
                         for (var i = 0; i < len; i++) {
-                            alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']+"myImage"+results.rows.item(i)['myImage']);
+                            alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
                            // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
                         }
                         //$('#resultList').listview();
