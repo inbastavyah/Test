@@ -150,7 +150,7 @@ function checkConnectionForSync() {
 var successTimeTrackerIdArr=[];
 
 function callSyncWithServer() {
-	alert("callSyncWithServer..");
+	//alert("callSyncWithServer..");
 	db.transaction
 	  (
 	       function (tx){
@@ -227,7 +227,7 @@ function saveDataToServer(dataObj){
 
 function deleteDataFromServer(id){
   if(id > 0){
-	  alert("deleteDataFromServer.id...");
+	  //alert("deleteDataFromServer.id...");
 	db.transaction
 	  (
 	       function (tx){
@@ -718,7 +718,6 @@ function submitData(){
 		}
 		if(( addLogTimeForm.gender[2].checked  )){
 			optedForMonthlyPayment= document.getElementById('nn').value;
-			//alert ("Opted For Monthly Payment :" +optedForMonthlyPayment );
 		}
 		var myImage=document.getElementById('myImage').src;
 		//alert("optedForMonthlyPayment :" +optedForMonthlyPayment + "the image" +myImage+ "taluka" +taluka );
@@ -857,7 +856,7 @@ function insertBaseappData(tx) {
 
 //Multiple records
 function getBaseappDataList(){
-	alert("getBaseappDataList");
+	//alert("getBaseappDataList");
   db.transaction
   (
        function (tx){
@@ -868,7 +867,7 @@ function getBaseappDataList(){
     	   alert("len--"+len);
                     if(len>0){
                         for (var i = 0; i < len; i++) {
-                            alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
+                         //   alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
                            // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
                         }
                         //$('#resultList').listview();
@@ -1083,13 +1082,11 @@ function getTodayDate(){
 }
 
 function getPicture(){
-	alert("get...");
 	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
 	    destinationType: Camera.DestinationType.DATA_URL
 	});
 	
 	function onSuccess(imageData) {
-		alert("onSuccess...1");
 		var image = document.getElementById('myImage');
 	    image.src = "data:image/jpeg;base64," + imageData;
 	    image.css('height', '200px');
