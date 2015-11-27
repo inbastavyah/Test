@@ -484,100 +484,156 @@ function handleLogin() {
 	return false;
 }
 
-//jsonDataObjGlobal 
+
 function getDataList(){
-   alert("getDataList");
-	//var grnUserData={"id":"1","fullname":"1","aadharno":"1"}; // Testing Data
-	var grnUserData={"id":window.localStorage.getItem("id"),"fullname":window.localStorage.getItem("fullname"),"aadharno":window.localStorage.getItem("aadharno")};
-	var grnUserObj=JSON.stringify(dataObj);
-	alert(grnUserData+"......"+grnUserObj);
-	if(grnUserObj != '') {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
-		
-		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
+  alert("getDataList.....");
+	var connectionType=checkConnection();
+	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			$.mobile.changePage('#view-all-data','slide');
 			navigator.notification.alert(appRequiresWiFi, function() {});
-		}
-		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
-			showModal();
-			//if(window.localStorage["solocal"] == 1){
-				$.mobile.changePage('#view-all-data','slide');
-				navigator.notification.alert(appRequiresWiFi, function() {});
-			//}
-			//else if(window.localStorage["solocal"] == 0){
-			
-				$.ajax({
-					type : 'POST',
-				   url:appUrl,
-				   data:{action:'BASEAPP',id:grnUserObj},
-				   success:function(data){
-				   		
-				   		var responseJson = $.parseJSON(data);
-				   		$('#salesOrderMainDiv').html('');
-				   		
-				   		var tbodyObj='<tbody>';
-				   		var dataArray=[];
-				   		jQuery.each(dataArray, function(index,value) {
-				        	//var jsonDataObjGlobal=value;
-				        	var id=jsonDataObjGlobal["id"];
-				        	var fullname=jsonDataObjGlobal["fullname"];
-				        	var elecconnno=jsonDataObjGlobal["elecconnno"];
-				        	var address=jsonDataObjGlobal["address"];
-				        	var taluka=jsonDataObjGlobal["taluka"];
-				        	var district=jsonDataObjGlobal["district"];
-				        	
-				        	var divObj='<div id="sales-table-div_'+id+'" class="sales-table-div">'+
-					                		'<table id="sp_order_'+id+'"  class="order-box ui-table" style="border: 1px solid #EEE8E8;" data-role="table" data-mode="" class="ui-responsive table-stroke sales-table">'+
-										     '<thead onclick="showHideTable(this);">'+
-										         '<tr>'+
-										             '<th class="sp-order " colspan="3" id="sp_order_name_'+id+'">'+
-										             		
-										             	'<div id="so_details_box" class="so-details-box" style="border-color: #'+fullname+';">'+
-									                    	'<div class="so-color-box" style="background-color: #'+HexColor+';">'+
-									                    		'<span style="">&nbsp;</span>'+
-									                        '</div>'+
-									                        '<div class="so-name-box" >'+
-									                        	'<span class="" id="so_name">'+fullname+' #'+elecconnno+'</span>'+
-									                        	'<a href="#" onclick="getLogTimeListOfOrder(this); return false;" class="process-report pull-right" data-order="'
-									                        		+address+'" data-oname="'+taluka+' #'+district+'" data-hexcolor="#'+district+'" >Report'+
-												                 '</a>'+
-									                        '</div>'+
-									                    '</div>'+	
-										             '</th>'+
-										         '</tr>'+
-										     '</thead>'+
-										     tbodyObjCurr+
-										     '</tbody>'+
-										     '<tfoot>'+
-										         '<tr>'+
-										             '<td colspan="3" class="td-danger">'+
-										             	'<a href="#" class="order-close" data-order="'+district+'" data-id="'+id+'" onclick="closeSalesOrder(this)"><span>CLOSE</span></a>'+
-										             '</td>'+ 
-										         '</tr>'+
-										     '</tfoot>'+
-										 '</table>'+
-									 '</div>';
-				        	
-				        	$('#salesOrderMainDiv').append(divObj);
-				   		});
-				   		//hideAllTablesData();
-				   		hideModal();
-				   		
-					},
-					error:function(data,t,f){
-						//hideModal();
-						navigator.notification.alert(appRequiresWiFi, function() {});	
-					}
-				});
-			
-			//}
-		}
-		
 	}
-	else{
+	
+	alert("getDataList.....1");
+}
+
+function showSomething(){
+	 alert();
+		//var grnUserData={"ID":"1","grn_companies_id":"1","permissions":"7"}; // Testing Data
+		var grnUserData={"ID":window.localStorage.getItem("ID"),"grn_companies_id":window.localStorage.getItem("grn_companies_id"),"permissions":window.localStorage.getItem("permissions")};
+		var grnUserObj=JSON.stringify(grnUserData);
 		
-	}
+		if(grnUserObj != '') {
+			var connectionType=checkConnection();
+			//var connectionType="WiFi connection";//For Testing
+			
+			if(connectionType=="Unknown connection" || connectionType=="No network connection"){
+				if(window.localStorage["solocal"] == 1){
+					$.mobile.changePage('#view-all-data','slide');
+				}
+				else if(window.localStorage["solocal"] == 0){
+					navigator.notification.alert(appRequiresWiFi, function() {});
+				}
+			}
+			else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
+				showModal();
+				
+				if(window.localStorage["solocal"] == 1){
+					//getSalesOrders();
+					$.mobile.changePage('#view-all-data','slide');
+				}
+				else if(window.localStorage["solocal"] == 0){
+				
+					$.ajax({
+						type : 'POST',
+					   url:appUrl,
+					   data:{action:'getSalesOrders',grn_user:grnUserObj},
+					   success:function(data){
+					   		
+					   		var responseJson = $.parseJSON(data);
+					   		$('#salesOrderMainDiv').html('');
+					   		
+					   		var tbodyObj='<tbody>';
+					   		var time_cats_arr=[];
+					   		jQuery.each(time_cats_arr, function(index,value) {
+					        	var jsonObj=value;
+					        	var id=jsonObj["id"];
+					        	var timeCats=jsonObj["timeCats"];
+					        	var title=jsonObj["title"];
+					        	var grn_roles_id=jsonObj["grn_roles_id"];
+					        	var revision=jsonObj["revision"];
+					        	var status=jsonObj["status"];
+					        	
+					        	tbodyObj+='<tr>'+
+							                 '<td class="order-p-icon">'+
+							                     '<span class="process-icon cm-10">'+
+							                         '<img class="icon-img" src="img/'+timeCats+'.png" id="timer_img_spOrderIdReplace_'+timeCats+'" data-order="spOrderIdReplace" data-timecat="'+timeCats+'" data-action="clock" onclick="logTimer(this);return false;">'+
+							                     '</span>'+
+							                 '</td>'+
+							                 '<td>'+
+							                     '<span id="orderId_spOrderIdReplace" class="timer">--:-- hrs</span>'+
+							                 '</td>'+
+							                 '<td class="order-t-icon">'+
+							                     '<a class="timer timer-icon clock" id="timer_spOrderIdReplace_'+timeCats+'" data-icon="flat-time" data-order="spOrderIdReplace" data-timecat="'+timeCats+'" data-action="clock" onclick="logTimer(this);return false;">'+
+												 '</a>'+
+							                 '</td>'+
+							             '</tr>';
+					   		});
+					   		tbodyObj+='</tbody>';
+					   		
+					   		salse_orders_arr=responseJson.sales_orders;
+					   		jQuery.each(salse_orders_arr, function(index,value) {
+					        	var jsonObj=value;
+					        	var id=jsonObj["id"];
+					        	var grn_companies_id=jsonObj["grn_companies_id"];
+					        	var sp_manager=jsonObj["sp_manager"];
+					        	var sp_salesorderNumber=jsonObj["sp_salesorderNumber"];
+					        	var sp_jobName=jsonObj["sp_jobName"];
+					        	var grn_colors_id=jsonObj["grn_colors_id"];
+					        	//var time_running_status=jsonObj["time_running_status"];
+					        	//var grn_status_id=jsonObj["grn_status_id"];
+					        	var HexColor=jsonObj["HexColor"];
+					        	//var tbodyObjCurr = tbodyObj.replace("spOrderIdReplace", id);
+					        	var tbodyObjCurr = tbodyObj.replace(/spOrderIdReplace/g,id);
+					        	
+					        	var divObj='<div id="sales-table-div_'+id+'" class="sales-table-div">'+
+						                		'<table id="sp_order_'+id+'"  class="order-box ui-table" style="border: 1px solid #EEE8E8;" data-role="table" data-mode="" class="ui-responsive table-stroke sales-table">'+
+											     '<thead onclick="showHideTable(this);">'+
+											         '<tr>'+
+											             '<th class="sp-order " colspan="3" id="sp_order_name_'+id+'">'+
+											             		
+											             	'<div id="so_details_box" class="so-details-box" style="border-color: #'+HexColor+';">'+
+										                    	'<div class="so-color-box" style="background-color: #'+HexColor+';">'+
+										                    		'<span style="">&nbsp;</span>'+
+										                        '</div>'+
+										                        '<div class="so-name-box" >'+
+										                        	'<span class="" id="so_name">'+sp_jobName+' #'+sp_salesorderNumber+'</span>'+
+										                        	'<a href="#" onclick="getLogTimeListOfOrder(this); return false;" class="process-report pull-right" data-order="'
+										                        		+id+'" data-oname="'+sp_jobName+' #'+sp_salesorderNumber+'" data-hexcolor="#'+HexColor+'" >Report'+
+													                 '</a>'+
+										                        '</div>'+
+										                    '</div>'+	
+											             '</th>'+
+											         '</tr>'+
+											     '</thead>'+
+											     tbodyObjCurr+
+											     '</tbody>'+
+											     '<tfoot>'+
+											         '<tr>'+
+											             '<td colspan="3" class="td-danger">'+
+											             	'<a href="#" class="order-close" data-order="'+sp_salesorderNumber+'" data-id="'+id+'" onclick="closeSalesOrder(this)"><span>CLOSE</span></a>'+
+											             '</td>'+ 
+											         '</tr>'+
+											     '</tfoot>'+
+											 '</table>'+
+										 '</div>';
+					        	
+					        	$('#salesOrderMainDiv').append(divObj);
+					   		});
+					   		hideAllTablesData();
+					   		hideModal();
+					   		
+					   		if(salse_orders_arr.length <= 0){
+					   			navigator.notification.alert("No sales order to show or try again after sometime.", function() {});	
+					   		}
+					   		
+					   		window.localStorage["solocal"] = 1;
+					   		//getSalesOrderList();
+					   		$.mobile.changePage('#view-all-data','slide');
+						},
+						error:function(data,t,f){
+							hideModal();
+							navigator.notification.alert(appRequiresWiFi, function() {});	
+						}
+					});
+				
+				}
+			}
+			
+		}
+		else{
+			logout();
+			navigator.notification.alert("Please login again.", function() {});
+		}
 }
 
 function showModal(){
