@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.robin.baseapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>BaseApp</name>
+    <description>
+        A base application.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://phonegap.com">
+        R Team
+    </author>
+    <content src="index.html" />
+    
+    <preference name="android-minSdkVersion" value="14" />     
+    <preference name="permissions" value="none"/>
+
+    <!-- to enable individual permissions use the following examples -->
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+ 	   
+    <!--
+    Phonegap Cloud Build Plugin Defination 
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" version="1.0.0" />
+	<gap:plugin name="io.litehelpers.cordova.sqlite" source="pgb" version="0.7.10" />
+	<gap:plugin name="org.apache.cordova.dialogs" source="pgb" version="0.2.10" />
+	<gap:plugin name="org.apache.cordova.network-information" source="pgb" version="0.2.12" />
+	 -->
+    
+    <!--    Phonegap Cloud Build Plugin Defination -->
+    <plugin name="cordova-plugin-whitelist" version="1" />
+    <plugin name="cordova-plugin-network-information" />
+    <plugin name="cordova-plugin-dialogs"  />
+    <plugin name="cordova-plugin-camera"  />
+    <!-- <plugin name="cordova-sqlite-storage"  /> -->
+    
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>

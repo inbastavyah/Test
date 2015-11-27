@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
+
+        <!-- <link rel="stylesheet"  href="libs/jQM-flat/jquery.mobile.flatui.css"> -->
+        <link rel="stylesheet"  href="libs/jQueryMobile/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" href="libs/jqm-datebox-1.4.5.css" />
+        
+        <script type="text/javascript" src="libs/fastclick.min.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <!-- <script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script> -->
+        <script type="text/javascript" src="libs/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="libs/jQueryMobile/jquery.mobile-1.4.5.min.js"></script>
+		<script src="libs/jqm-datebox-1.4.5.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="libs/jquery.validate.min.js"></script>
+        
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        
+        <title>Base App</title>
+    </head>
+	<body>
+		
+        <div id="app">
+        <!-- 
+        	<div  id="login-page" data-role="page">
+                <div data-role="content">
+					<div  class="login-box">
+						<div id="logoContainer" class="centerText">
+								<img src="img/stavyahlogo.jpg" id="logo"  />
+						</div>
+						<form  id="loginForm" action="">
+							<label for="username">Username</label>
+							<input type="email" name="username" id="username" placeholder="Username"/>
+							<label for="password">Password </label>
+							<input type="password" name="password" id="password" placeholder="Password" autocomplete="off"/>
+							<input type="submit" value="Login" id="submitButton" class="app-link" data-theme="a" >
+						</form>
+					</div>
+                </div>
+            </div>
+             -->
+            
+			<div id="home-page" data-role="page">
+				<div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+					<a href="#overlayPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Roles Menu</a>
+                    <h1>Homepage</h1>
+					<!-- <a href="#"  data-role="button"  data-icon="power" class="" data-inline="true" ></a> -->
+					<a href="#" class="ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-right" onclick="doLogout();">Logout</a>
+                </div>
+                
+                <div data-role="content" >
+                	<div data-role="panel" id="overlayPanel" data-display="overlay">
+					    <h4>Select Menu</h4>
+					     <ul data-role="listview" id="userRolesUl">
+						  	<li id="5" onclick="changeLoginRole(5,'Menu1'); return false;"><a href="#">Menu1</a></li>
+						  	<li id="7" onclick="changeLoginRole(7,'Menu1'); return false;"><a href="#">Menu2</a></li>
+						  	<li id="9" onclick="changeLoginRole(9,'Menu1'); return false;"><a href="#">Menu3</a></li>
+						  	<li id="10" onclick="changeLoginRole(10,'Menu1'); return false;"><a href="#">Menu4</a></li>
+						 </ul>
+					    <!-- <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close</a> -->
+					 </div> 
+					 
+                	<div id="menu">
+                		<div>
+                			<h4>Welcome, <span id="userFullName"></span></h4>
+                		</div>
+                		<div>
+	                		<ul class="home-page-menu-ul" data-role="listview"   data-divider-theme="a">
+	                			<li data-role="list-divider">Data List</li> 
+							    <li data-icon="bars"><a href="#" onclick="getDataList();">All Data List</a></li>
+							    <li data-icon="plus"><a href="#add-log-time" >Create Data</a></li>
+							    <li data-role="list-divider">User Roles</li>
+							    <li data-icon="action"><a href="#overlayPanel" >Select Menu</a></li>
+							</ul>
+						</div>
+						
+						 <input type="button" id="getBaseappDataList" value="Data List"  onclick="getBaseappDataList();" >
+						 <input type="button" id="insertTestData23" value="Data"  onclick="insertTestData();"  >
+						 
+						 <input type="button" id="callSyncWithServer" value="Sync Call"  onclick="callSyncWithServer();" >
+						
+						<div class="display-none">
+							<div id="syncCallTimerDiv"> </div>
+							
+							<ul id="resultList">
+								<li></li>
+							</ul>
+						</div>
+                	</div>
+                	
+                	
+                	<!-- 
+                	<div id="timeTrackerInfoDiv">
+                	    <a href="#getSOBySONumberDialog" data-theme="a" data-role="button" data-rel="dialog">Add All Data List</a>
+                    </div>
+					 -->
+                </div>
+                <div data-role="footer" data-id="footer1" data-position="fixed" data-tap-toggle="true" class="app-footer-section" class="footer-div">
+                    <div id="navbar" data-role="navbar">
+                        <ul>
+                            <li><a id="map-button" href="#home-page" data-icon="home" data-theme="b" class="app-link active">Home</a></li>
+                            <li><a id="list-button" href="#" onclick="getDataList();" data-icon="bars" class="app-link">All Data List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /page  -->
+			
+			<div id="view-all-data" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
+                    <h1>All Data List</h1>
+					<a href="#" class="ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-right" onclick="doLogout();">Logout</a>
+                </div>
+                
+                <div data-role="content" >
+                	<div id="timeTrackerInfoDiv">
+                	    <a href="#" class="mini-btn" data-theme="a" data-role="button"  data-rel="dialog">Add All Data List</a>
+                    </div>
+                    <hr class="style">
+                    
+                    <div id="salesOrderMainDiv">
+                    	
+                	</div>
+                </div>
+                
+                <div data-role="footer" data-id="footer1" data-position="fixed" data-tap-toggle="true" class="app-footer-section" class="footer-div">
+                    <div id="navbar" data-role="navbar">
+                        <ul>
+                            <li><a id="map-button" href="#home-page" data-icon="home" data-theme="b" class="app-link">Home</a></li>
+                            <li><a id="list-button" href="#" onclick="getDataList();" data-icon="bars" class="app-link active">All Data List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /page  -->
+			
+			<!-- Dialog only page -->
+			<div data-role="page" id="getSOBySONumberDialog" data-close-btn="right" data-corners="false" >
+			  <div data-role="header">
+				<h1>Create All Data List</h1>
+			  </div>
+			  <div data-role="content">
+			  	<p class="msg-info sales-order-msg"></p>
+			  	<label for="All Data List Number">All Data List Number </label>
+				<input type="text" name="sp_salesOrderNumber" id="sp_salesOrderNumber" placeholder="All Data List Number" autocomplete="off" />
+				
+				<div id="sp_details_div" class="display-none">
+					<label for="All Data List Number">Job Name</label>
+					<input type="text" name="sp_jobName" id="sp_jobName" placeholder="Job Name" autocomplete="off" />
+					<label for="All Data List Number">Choose Color</label>
+					<input type="text" name="chooseColorForSalesOrder" id="chooseColorForSalesOrder" placeholder="Choose Color" autocomplete="off" />
+					<p style="text-align: center;"><span id="colorForSO" style="width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+				</div>
+				
+				<div class="ui-grid-a sales-order-btn-group">
+				  <!-- <div class="ui-block-a"><a data-rel="back" data-role="button" href="#view-all-data" >Close</a></div> -->
+				  <div class="ui-block-a" ><a  id="tryAgainBtn" class="display-none" data-theme="a" data-role="button" href="#" onclick="tryAgainSOBySONumber();" >Try Again</a></div>
+				  <div class="ui-block-a display-none" ><a  id="showOrderBtn" class="" data-theme="a" data-role="button" href="#" onclick="showOrderSOBySONumber();" >Show Order</a></div>
+				  <div class="ui-block-b"><a id="getSOBySONumberBtn" data-theme="a" data-role="button" href="#" onclick="getSOBySONumber();" >Submit</a></div>
+				  <div class="ui-block-b"><a id="addNewSalesOrderBtn" class="display-none"  data-theme="a" data-role="button" href="#" onclick="createNewSO();" >Create</a></div>
+				</div><!-- /grid-a -->
+				
+			  </div>
+			</div>
+			
+			<div id="view-log-time-history" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
+                    <h1>Log Time History</h1>
+					<a href="#" class="ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-right" onclick="doLogout();">Logout</a>
+                </div>
+                
+                <div data-role="content" id="viewLogTimeHistoryContent" >
+                	<div>
+                	    <a href="#" class="mini-btn" data-theme="a" data-role="button" onclick="addLogTime();" >Log More Time</a>
+                	    <hr class="style">
+                    </div>
+                    
+                    <div id="so_details_box" class="so-details-box">
+                    	<div class="so-color-box" >
+                    		<span style="">&nbsp;</span>
+                        </div>
+                        <div class="so-name-box" >
+                        	Order: <span class="" id="so_name">1 time Customer Customer #123</span>
+                        </div>
+                    </div>
+                    
+                    <div id="logTimeHistoryDiv">
+                    	<div class="log-time-entry-div logTimeDiv1" id="logTimeDiv"><div class="date-time-details">Date:<span class="">2015-10-13</span><span class="pull-right">1:03 hrs</span></div><div class="process-details"><div class="ui-grid-a my-breakpoint"><div class="ui-block-a"><div class="process-img"><img src="img/prog_production.png"></div><div class="process-name">Programming Production</div></div><div class="ui-block-b text-align-right"><span class="link-custom-spam"><a data-category="prog_production" data-crewsize="3" data-time="1:03" data-date="2015-10-13" data-id="11" data-sotimeid="1" data-comment="dsfdsfdxfdsg dfgdfgd dfgdf" href="#" onclick="editLogTime(this);">Edit</a></span></div></div><div class="more-process-details-main "><div class="text-align-right"><a class="link" href="#" onclick="moreProcessDetails(this);">Show Details</a></div><div style="display: none;" class="more-process-details moreDetailsDiv12"><p class="process-comment">Revision: <span class="text-purple" style="vertical-align: top;">Work</span></p><p class="process-comment">Comment: <span>No Comments Yet.</span></p></div></div></div></div>
+                    </div>
+                	
+                </div>
+                
+                <div data-role="footer" data-id="footer1" data-position="fixed" data-tap-toggle="true" class="app-footer-section" class="footer-div">
+                    <div id="navbar" data-role="navbar">
+                        <ul>
+                            <li><a id="map-button" href="#home-page" data-icon="home" data-theme="b" class="app-link">Home</a></li>
+                            <li><a id="list-button" href="#" onclick="getDataList();" data-icon="bars" class="app-link">All Data List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /page  -->
+            
+            <div id="add-log-time" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
+                    <h1>Data Entry</h1>
+					<a href="#" class="ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-right" onclick="doLogout();">Logout</a>
+                </div>
+                
+                <div data-role="content" id="addLogTimeContent">
+                    	
+                    <div id="addLogTimeMainDiv">
+                    	<form id="addLogTimeForm">
+                    		<div class="display-none">
+                    			<input type="hidden" id="id" value="">
+                    		</div>
+		                   	<div class="ui-field-contain">
+							    <label for="fullname">Full Name </label>
+		                    	<input type="text" data-mini="true" id="fullname" name="fullname"  required="required">
+		                    </div>  
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="elecconnno">Elec Connection No. </label>
+		                    	<input type="text" data-mini="true" id="elecconnno" name="elecconnno" >
+		                    </div>
+		                    <div class="ui-field-contain">
+							    <label for="aadharno">Aadhar Number</label>
+		                    	<input type="text" data-mini="true" id="aadharno" name="aadharno" >
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+							   <label for="Add a description:">Address: </label>
+							   <textarea cols="40" rows="4" name="address" id="address"></textarea>
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="Taluka">Taluka</label>
+		                    	<select name="taluka" id="taluka" data-mini="true" class="required">                    
+		                    		<option value="">--Select Taluka--</option>
+		                            <option value="taluka1">Taluka 1</option>
+		                            <option value="taluka2">Taluka 2</option>
+		                            <option value="taluka3">Taluka 3</option>
+		                        </select>
+		                    </div>   
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="District">District</label>
+		                    	<select name="district" id="district" data-mini="true" >                    
+		                    		<option value="">--Select District--</option>
+		                            <option value="district1">District 1</option>
+		                            <option value="district2">District 2</option>
+		                            <option value="district3">District 3</option>
+		                        </select>
+		                    </div>  
+		                    
+		                     <div class="ui-field-contain">
+							    <label for="Pin Code">Pin Code</label>
+		                    	<input type="text" data-mini="true" id="pincode" name="pincode" >
+		                     </div>
+		                    
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="Add a description:">Mobile Number: </label>
+							    <input type="text" data-mini="true" name="mobile" id="mobile">
+		                    </div> 
+		                    
+		                     <div class="ui-field-contain">
+							    <label for="Add a description:">spouse Name: </label>
+							    <input type="text" data-mini="true" name="spouse" id="spouse">
+		                    </div> 
+		                    
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="noOfChildren">Number Of Children</label>
+		                    	<input type="text" data-mini="true" id="noOfChildren" name="noOfChildren" >
+		                    </div>
+		                     
+		                     <div class="ui-field-contain">
+							    <label for="Gender">Gender</label>
+		                    	<select name="gender" id="gender" data-mini="true" >                    
+		                    		<option value="">--Select Gender--</option>
+		                            <option value="Male">Male</option>
+		                            <option value="district2">Female</option>
+		                        </select>
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="age">Age</label>
+		                    	<input type="text" data-mini="true" id="age" name="age" >
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="qualification">Qualification</label>
+		                    	<input type="text" data-mini="true" id="qualification" name="qualification" >
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="noOfLedIssued">Number Of LED issued</label>
+		                    	<input type="text" data-mini="true" id="noOfLedIssued" name="noOfLedIssued" >
+		                    </div>
+		                    
+		                     <div class="ui-field-contain">
+							    <label for="recieptNumber">Reciept Number</label>
+		                    	<input type="text" data-mini="true" id="recieptNumber" name="recieptNumber" >
+		                     </div>
+		                    
+		                    <div class="ui-field-contain">
+							    <fieldset data-role="controlgroup" data-type="horizontal">
+							        <legend>Opted For Monthly Payment:</legend>
+							        <input  type="radio" name="gender" id="yy" value="Y" checked="checked">
+							        <label for="yy">Yes</label>
+							        <input type="radio" name="gender" id="nn" value="N"  >
+							        <label for="nn">No</label>
+							    </fieldset>
+		                     </div>
+		                     
+		                     <div >
+	                    		<img id="myImage" alt="" src="img/stavyahlogo.jpg" >
+	                          	<input type="hidden" id="myImageUrl" src="img/stavyahlogo.jpg" value=""> 	
+		                    </div>	
+		                    <input type="button" id="cameraOn" value="Take Photo" data-flag="add" onclick="getPicture();" >
+		                            
+		                    <input type="submit" id="submitBtn" value="Submit" data-flag="add"  />
+						</form>	    
+                	</div>
+                	
+                	
+                </div>	
+                
+                <div data-role="footer" data-id="footer1" data-position="fixed" data-tap-toggle="true" class="app-footer-section" class="footer-div">
+                    <div id="navbar" data-role="navbar">
+                        <ul>
+                            <li><a id="map-button" href="#home-page" data-icon="home" data-theme="b" class="app-link">Home</a></li>
+                            <li><a id="list-button" href="#" onclick="getDataList();" data-icon="bars" class="app-link">All Data List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+		
+    </body>
+</html>
+
