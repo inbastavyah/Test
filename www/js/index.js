@@ -490,12 +490,15 @@ function getDataList(){
 	var connectionType=checkConnection();
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			$.mobile.changePage('#view-all-data','slide');
-			navigator.notification.alert(appRequiresWiFi, function() {});
+			//navigator.notification.alert(appRequiresWiFi, function() {});
+			  alert("getDataList.....1");
 	}
 	else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 		    //showModal();
+		  alert("getDataList.....2");
 			$.mobile.changePage('#view-all-data','slide');
-			navigator.notification.alert(appRequiresWiFi, function() {});
+			//navigator.notification.alert(appRequiresWiFi, function() {});
+			  alert("getDataList.....4");
 			$.ajax({
 				type : 'POST',
 			   url:appUrl,
