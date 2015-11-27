@@ -501,10 +501,10 @@ function getDataList(){
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
-			if(window.localStorage["solocal"] == 1){
+			//if(window.localStorage["solocal"] == 1){
 				$.mobile.changePage('#view-all-data','slide');
 				navigator.notification.alert(appRequiresWiFi, function() {});
-			}
+			//}
 			//else if(window.localStorage["solocal"] == 0){
 			
 				$.ajax({
@@ -514,7 +514,7 @@ function getDataList(){
 				   success:function(data){
 				   		
 				   		var responseJson = $.parseJSON(data);
-				   		$('#AllDataMainDiv').html('');
+				   		$('#salesOrderMainDiv').html('');
 				   		
 				   		var tbodyObj='<tbody>';
 				   		var dataArray=[];
@@ -559,7 +559,7 @@ function getDataList(){
 										 '</table>'+
 									 '</div>';
 				        	
-				        	$('#AllDataMainDiv').append(divObj);
+				        	$('#salesOrderMainDiv').append(divObj);
 				   		});
 				   		//hideAllTablesData();
 				   		hideModal();
