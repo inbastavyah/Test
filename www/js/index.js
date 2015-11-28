@@ -165,26 +165,26 @@ function callSyncWithServer() {
 	                        		//alert("id"+results.rows.item(i)['id']);
 	                        		//var currid=results.rows.item(i)['id'];
 	                        		var dataObj={};
-	                        		//dataObj.action='addLogTime';
-	                        		//dataObj.grn_user=grnUserObj;
-	                        		dataObj.id= results.rows.item(i)['id'];
-	                        		dataObj.fullname= results.rows.item(i)['fullname'];
-	                        		dataObj.elecconnno= results.rows.item(i)['elecconnno'];
-	                        		dataObj.aadharno= results.rows.item(i)['aadharno'];
-	                        		dataObj.address= results.rows.item(i)['address'];
-	                        		dataObj.taluka= results.rows.item(i)['taluka'];
-	                        		dataObj.district= results.rows.item(i)['district'];
-	                        		dataObj.pincode= results.rows.item(i)['pincode'];
-	                        		dataObj.mobile= results.rows.item(i)['mobile'];
-	                        		dataObj.spouse= results.rows.item(i)['spouse'];
-	                        		dataObj.noOfChildren= results.rows.item(i)['noOfChildren'];
-	                        		dataObj.gender= results.rows.item(i)['gender'];
-	                        		dataObj.age= results.rows.item(i)['age'];
-	                        		dataObj.qualification= results.rows.item(i)['qualification'];
-	                        		dataObj.noOfLedIssued= results.rows.item(i)['noOfLedIssued'];
-	                        		dataObj.recieptNumber= results.rows.item(i)['recieptNumber'];
-	                        		dataObj.optedForMonthlyPayment= results.rows.item(i)['optedForMonthlyPayment'];
-	                        		dataObj.myImage= results.rows.item(i)['myImage'];
+	                        		//varaction='addLogTime';
+	                        		//vargrn_user=grnUserObj;
+	                        		varid= results.rows.item(i)['id'];
+	                        		varfullname= results.rows.item(i)['fullname'];
+	                        		varelecconnno= results.rows.item(i)['elecconnno'];
+	                        		varaadharno= results.rows.item(i)['aadharno'];
+	                        		varaddress= results.rows.item(i)['address'];
+	                        		vartaluka= results.rows.item(i)['taluka'];
+	                        		vardistrict= results.rows.item(i)['district'];
+	                        		varpincode= results.rows.item(i)['pincode'];
+	                        		varmobile= results.rows.item(i)['mobile'];
+	                        		varspouse= results.rows.item(i)['spouse'];
+	                        		varnoOfChildren= results.rows.item(i)['noOfChildren'];
+	                        		vargender= results.rows.item(i)['gender'];
+	                        		varage= results.rows.item(i)['age'];
+	                        		varqualification= results.rows.item(i)['qualification'];
+	                        		varnoOfLedIssued= results.rows.item(i)['noOfLedIssued'];
+	                        		varrecieptNumber= results.rows.item(i)['recieptNumber'];
+	                        		varoptedForMonthlyPayment= results.rows.item(i)['optedForMonthlyPayment'];
+	                        		varmyImage= results.rows.item(i)['myImage'];
 	                        		
 	                        		 saveDataToServer(dataObj);
 	                        		/*var response = saveDataToServer(dataObj);
@@ -218,9 +218,9 @@ function callSyncWithServer() {
 }
 //saveDataToServer
 function saveDataToServer(dataObj){
-	alert("dataObj.id..." +dataObj.id);
-		if(dataObj.id > 0){
-			deleteDataFromServer(dataObj.id);
+	alert("varid..." +varid);
+		if(varid > 0){
+			deleteDataFromServer(varid);
 		}
 }
 // end of saveDataToServer
@@ -498,7 +498,27 @@ function getDataList(){
                     if(len>0){
                         for (var i = 0; i < len; i++) {
                          alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
-                           // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
+                         var id= results.rows.item(i)['id'];
+                 		var fullname= results.rows.item(i)['fullname'];
+                 		var elecconnno= results.rows.item(i)['elecconnno'];
+                 		var aadharno= results.rows.item(i)['aadharno'];
+                 		var address= results.rows.item(i)['address'];
+                 		var taluka= results.rows.item(i)['taluka'];
+                 		var district= results.rows.item(i)['district'];
+                 		var pincode= results.rows.item(i)['pincode'];
+                 		var mobile= results.rows.item(i)['mobile'];
+                 		var spouse= results.rows.item(i)['spouse'];
+                 		var noOfChildren= results.rows.item(i)['noOfChildren'];
+                 		var gender= results.rows.item(i)['gender'];
+                 		var age= results.rows.item(i)['age'];
+                 		var qualification= results.rows.item(i)['qualification'];
+                 		var noOfLedIssued= results.rows.item(i)['noOfLedIssued'];
+                 		var recieptNumber= results.rows.item(i)['recieptNumber'];
+                 		var optedForMonthlyPayment= results.rows.item(i)['optedForMonthlyPayment'];
+                 		var myImage= results.rows.item(i)['myImage']; 
+                         
+                 		alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
+                         // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
                         }
                         //$('#resultList').listview();
                     }
