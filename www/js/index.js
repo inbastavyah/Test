@@ -495,11 +495,11 @@ function getDataList(){
 	alert("fullname :"+fullname);
 	fullname = "smith";
 	
-	db.transaction
+	/*db.transaction
 	  (
 	       function (tx){
-	            /*tx.executeSql('SELECT fullname,aadharno,address FROM BASEAPP',[],function(tx,results){
-	            */
+	            tx.executeSql('SELECT fullname,aadharno,address FROM BASEAPP',[],function(tx,results){
+	            
 	    	   tx.executeSql('SELECT fullname, elecconnno, aadharno, address, taluka, district, pincode, mobile, spouse, noOfChildren,gender, age, qualification, noOfLedIssued, recieptNumber,optedForMonthlyPayment,myImage FROM BASEAPP',[],function(tx,results){
 	    	   var len = results.rows.length;
 	    	   alert("len--"+len);
@@ -513,7 +513,7 @@ function getDataList(){
 	                }, errorCB
 	            );
 	       },errorCB,successCB
-	   );
+	   );*/
 	
   var connectionType=checkConnection();
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
