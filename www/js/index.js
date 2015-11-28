@@ -533,7 +533,8 @@ function getDataList(){
                         		results.rows.item(i)['recieptNumber']+"|"+
                         		results.rows.item(i)['optedForMonthlyPayment']
                         );
-                 		
+                      $('#listview').append('<li><a href="#">' + results.rows.item(i)['recieptNumber'] + '</a></li>');
+                        
                         var jsonDataObj={};
 			        	jsonDataObj.fullname = fullname;
 			        	jsonDataObj.elecconnno = elecconnno;
@@ -626,37 +627,35 @@ function getDataList(){
 
 //saveServerDataList
 function saveServerDataList(jsonDataObj){
-	alert("saveServerDataList.....2");
 	
-	$.ajax({
-		type : 'POST',
-	   url:appUrl,
-	   data:{action:'BASEAPP',jsonDataObj:jsonDataObj},
-	   success:function(data){
-	   		var responseJson = $.parseJSON(data);
-	   		if(responseJson.status == "success"){
-	   			alert("responseJson..."+responseJson);
-	   			id=jsonDataObj.id;
-	   			alert("jsonDataObj.id; "+jsonDataObj.id + " id :" +id);
-	   			db.transaction
-	   		  (
-	   		       function (tx){
-	   		            tx.executeSql
-	   		            (
-	   		                'DELETE FROM BASEAPP WHERE id=?',[id], successCB
-	   		            );
-	   		       }, successCB, errorCB
-	   		   );
-	   			
-	   		}
-	   		else{
-	   			
-	   		}
-	   	
-		},
-		
-	});
-	alert("saveServerDataList.....3");
+	var connectionType=checkConnection();
+	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
+		navigator.notification.alert(appRequiresWiFi, function() {});
+	}
+	else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
+		$.ajax({
+			type : 'POST',
+		   url:appUrl,
+		   data:{action:'BASEAPP',jsonDataObj:jsonDataObj},
+		   success:function(data){
+		   		var responseJson = $.parseJSON(data);
+		   		if(responseJson.status == "success"){
+		   			var id=jsonDataObj.id;
+		   			alert("jsonDataObj.id; "+jsonDataObj.id + " id :" +id);
+		   			db.transaction(
+		   		       function (tx){
+		   		            tx.executeSql('DELETE FROM BASEAPP WHERE id=?',[id], successCB);
+		   		       }, successCB, errorCB
+		   		   );
+		   			
+		   		}
+		   		else if(responseJson.status == "fail"){
+		   			//consol.lo
+		   		}
+			},
+		});
+	}
+	
 } // end of saveServerDataList
 
 function showModal(){
