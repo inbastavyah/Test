@@ -515,7 +515,7 @@ function getDataList(){
                  		var myImage= results.rows.item(i)['myImage']; 
                          
                  		//alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
-                        $('#AllDataMainDiv').append(
+                       /* $('#AllDataMainDiv').append(
                         		results.rows.item(i)['fullname']+"|" + 
                         		results.rows.item(i)['elecconnno']+ "|" +
                         		results.rows.item(i)['aadharno']+"|"+
@@ -532,7 +532,7 @@ function getDataList(){
                         		results.rows.item(i)['noOfLedIssued']+"|"+
                         		results.rows.item(i)['recieptNumber']+"|"+
                         		results.rows.item(i)['optedForMonthlyPayment']
-                        );
+                        );*/
                       $('#listview').append('<li><a href="#">' + results.rows.item(i)['recieptNumber'] + '</a></li>');
                         
                         var jsonDataObj={};
@@ -555,6 +555,8 @@ function getDataList(){
 			        	
 			         saveServerDataList(jsonDataObj);
                         }
+                        $('#listview').listview();
+                        $('#listview').listview().listview('refresh');
                     }
                 }, errorCB
             );
