@@ -486,12 +486,9 @@ function handleLogin() {
 
 
 function getDataList(){
-  alert("getDataList.....");
   db.transaction
   (
        function (tx){
-            /*tx.executeSql('SELECT fullname,aadharno,address FROM BASEAPP',[],function(tx,results){
-            */
     	   tx.executeSql('SELECT fullname, elecconnno, aadharno, address, taluka, district, pincode, mobile, spouse, noOfChildren,gender, age, qualification, noOfLedIssued, recieptNumber,optedForMonthlyPayment,myImage FROM BASEAPP',[],function(tx,results){
     	   var len = results.rows.length;
     	   alert("len--"+len);
@@ -518,41 +515,45 @@ function getDataList(){
                  		var myImage= results.rows.item(i)['myImage']; 
                          
                  		//alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
-                        $('#AllDataMainDiv').append( results.rows.item(i)['fullname']+"|" + results.rows.item(i)['elecconnno']+ "|" +results.rows.item(i)['aadharno']+"|"+results.rows.item(i)['address']+"|"+results.rows.item(i)['taluka']+"|"+results.rows.item(i)['district']+"|"+results.rows.item(i)['pincode']+"|"+results.rows.item(i)['mobile']+"|"+ results.rows.item(i)['spouse']+"|"+results.rows.item(i)['noOfChildren']+"|"+results.rows.item(i)['gender']+"|"+results.rows.item(i)['age']+"|"+results.rows.item(i)['qualification']+"|"+results.rows.item(i)['noOfLedIssued']+"|"+results.rows.item(i)['recieptNumber']+"|"+results.rows.item(i)['optedForMonthlyPayment']);
+                        $('#AllDataMainDiv').append(
+                        		results.rows.item(i)['fullname']+"|" + 
+                        		results.rows.item(i)['elecconnno']+ "|" +
+                        		results.rows.item(i)['aadharno']+"|"+
+                        		results.rows.item(i)['address']+"|"+
+                        		results.rows.item(i)['taluka']+"|"+
+                        		results.rows.item(i)['district']+"|"+
+                        		results.rows.item(i)['pincode']+"|"+
+                        		results.rows.item(i)['mobile']+"|"+
+                        		results.rows.item(i)['spouse']+"|"+
+                        		results.rows.item(i)['noOfChildren']+"|"+
+                        		results.rows.item(i)['gender']+"|"+
+                        		results.rows.item(i)['age']+"|"+
+                        		results.rows.item(i)['qualification']+"|"+
+                        		results.rows.item(i)['noOfLedIssued']+"|"+
+                        		results.rows.item(i)['recieptNumber']+"|"+
+                        		results.rows.item(i)['optedForMonthlyPayment']
+                        );
                  		
-                        /*$('#AllDataMainDiv').html('');
-    			   		
-    			   		var tbodyObj='<tbody>';
-    			   		var dataArray=[];
-    			   		jQuery.each(dataArray, function(index,value) {
-    			   			var jsonDataObjGlobal=value;
-    			        	var id=jsonDataObjGlobal["id"];
-    			        	var fullname=jsonDataObjGlobal["fullname"];
-    			        	var elecconnno=jsonDataObjGlobal["elecconnno"];
-    			        	var address=jsonDataObjGlobal["address"];
-    			        	var taluka=jsonDataObjGlobal["taluka"];
-    			        	var district=jsonDataObjGlobal["district"];
-    			        	
-    			        	tbodyObj+='<tr>'+
-    					                 '<td class="order-p-icon">'+
-    					                     '<span class="process-icon cm-10">'+
-    					                         '<img class="icon-img" src="" id="timer_img_spOrderIdReplace_'+id+'" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
-    					                     '</span>'+
-    					                 '</td>'+
-    					                 '<td>'+
-    					                     '<span id="id" class="timer">--:-- hrs</span>'+
-    					                 '</td>'+
-    					                 '<td class="order-t-icon">'+
-    					                     '<a class="timer timer-icon clock" id="timer_spOrderIdReplace_'+fullname+'" data-icon="flat-time" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
-    										 '</a>'+
-    					                 '</td>'+
-    					             '</tr>';
-    			   		});
-    			   		tbodyObj+='</tbody>';
-    			   		$.mobile.changePage('#view-all-data','slide');
-*/
+                        var jsonDataObj={};
+			        	jsonDataObj.fullname = fullname;
+			        	jsonDataObj.elecconnno = elecconnno;
+			        	jsonDataObj.address = address;
+			        	jsonDataObj.taluka = taluka;
+			        	jsonDataObj.district = district;
+			        	jsonDataObj.pincode = pincode;
+			        	jsonDataObj.mobile = mobile;
+			        	jsonDataObj.spouse = spouse;
+			        	jsonDataObj.noOfChildren = noOfChildren;
+			        	jsonDataObj.gender = gender;
+			        	jsonDataObj.age = age;
+			        	jsonDataObj.qualification = qualification;
+			        	jsonDataObj.noOfLedIssued = noOfLedIssued;
+			        	jsonDataObj.recieptNumber = recieptNumber;
+			        	jsonDataObj.optedForMonthlyPayment = optedForMonthlyPayment;
+			        	jsonDataObj.myImage = myImage;
+			        	
+			         saveServerDataList(jsonDataObj);
                         }
-                        //$('#resultList').listview();
                     }
                 }, errorCB
             );
@@ -622,6 +623,41 @@ function getDataList(){
 	}*/
 	alert("getDataList.....2");
 }
+
+//saveServerDataList
+function saveServerDataList(jsonDataObj){
+	alert("saveServerDataList.....2");
+	
+	$.ajax({
+		type : 'POST',
+	   url:appUrl,
+	   data:{action:'BASEAPP',jsonDataObj:jsonDataObj},
+	   success:function(data){
+	   		var responseJson = $.parseJSON(data);
+	   		if(responseJson.status == "success"){
+	   			alert("responseJson..."+responseJson);
+	   			id=jsonDataObj.id;
+	   			alert("jsonDataObj.id; "+jsonDataObj.id + " id :" +id);
+	   			db.transaction
+	   		  (
+	   		       function (tx){
+	   		            tx.executeSql
+	   		            (
+	   		                'DELETE FROM BASEAPP WHERE id=?',[id], successCB
+	   		            );
+	   		       }, successCB, errorCB
+	   		   );
+	   			
+	   		}
+	   		else{
+	   			
+	   		}
+	   	
+		},
+		
+	});
+	alert("saveServerDataList.....3");
+} // end of saveServerDataList
 
 function showModal(){
   $('body').append("<div class='ui-loader-background'> </div>");
