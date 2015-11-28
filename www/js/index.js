@@ -164,7 +164,7 @@ function callSyncWithServer() {
 	                        	//if(results.rows.item(i)['localStatus']=='complete'){
 	                        		//alert("id"+results.rows.item(i)['id']);
 	                        		//var currid=results.rows.item(i)['id'];
-	                        	    var	dataObj={};
+	                        		var dataObj={};
 	                        		//dataObj.action='addLogTime';
 	                        		//dataObj.grn_user=grnUserObj;
 	                        		dataObj.id= results.rows.item(i)['id'];
@@ -487,11 +487,10 @@ function handleLogin() {
 
 function getDataList(){
   alert("getDataList.....");
-	var form = $("#addLogTimeForm");
+/*	var form = $("#addLogTimeForm");
 	//disable the button so we can't resubmit while we wait
 	
 	var fullname = $("#fullname", form).val();
-	alert("fullname :"+fullname);
 	fullname = "smith";
   var connectionType=checkConnection();
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
@@ -505,7 +504,7 @@ function getDataList(){
 			$.mobile.changePage('#view-all-data','slide');
 			//navigator.notification.alert(appRequiresWiFi, function() {});
 			  alert("getDataList.....4");
-/*			$.ajax({
+			$.ajax({
 				type : 'POST',
 			   url:appUrl,
 			   data:{action:'BASEAPP',fullname:fullname},
@@ -548,7 +547,7 @@ function getDataList(){
 			});
 			
 	}*/
-	alert("getDataList.....1");
+	alert("getDataList.....2");
 }
 
 function showModal(){
@@ -782,7 +781,7 @@ function insertBaseappData(tx) {
 
 //Multiple records
 function getBaseappDataList(){
-	alert("getBaseappDataList");
+	//alert("getBaseappDataList");
   db.transaction
   (
        function (tx){
