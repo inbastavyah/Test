@@ -518,7 +518,39 @@ function getDataList(){
                  		var myImage= results.rows.item(i)['myImage']; 
                          
                  		alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
-                         // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
+                        $('#AllDataMainDiv').append( results.rows.item(i)['fullname']+"" + results.rows.item(i)['elecconnno']);
+                 		
+                        /*$('#AllDataMainDiv').html('');
+    			   		
+    			   		var tbodyObj='<tbody>';
+    			   		var dataArray=[];
+    			   		jQuery.each(dataArray, function(index,value) {
+    			   			var jsonDataObjGlobal=value;
+    			        	var id=jsonDataObjGlobal["id"];
+    			        	var fullname=jsonDataObjGlobal["fullname"];
+    			        	var elecconnno=jsonDataObjGlobal["elecconnno"];
+    			        	var address=jsonDataObjGlobal["address"];
+    			        	var taluka=jsonDataObjGlobal["taluka"];
+    			        	var district=jsonDataObjGlobal["district"];
+    			        	
+    			        	tbodyObj+='<tr>'+
+    					                 '<td class="order-p-icon">'+
+    					                     '<span class="process-icon cm-10">'+
+    					                         '<img class="icon-img" src="" id="timer_img_spOrderIdReplace_'+id+'" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
+    					                     '</span>'+
+    					                 '</td>'+
+    					                 '<td>'+
+    					                     '<span id="id" class="timer">--:-- hrs</span>'+
+    					                 '</td>'+
+    					                 '<td class="order-t-icon">'+
+    					                     '<a class="timer timer-icon clock" id="timer_spOrderIdReplace_'+fullname+'" data-icon="flat-time" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
+    										 '</a>'+
+    					                 '</td>'+
+    					             '</tr>';
+    			   		});
+    			   		tbodyObj+='</tbody>';
+    			   		$.mobile.changePage('#view-all-data','slide');
+*/
                         }
                         //$('#resultList').listview();
                     }
