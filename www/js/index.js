@@ -517,8 +517,8 @@ function getDataList(){
                  		var optedForMonthlyPayment= results.rows.item(i)['optedForMonthlyPayment'];
                  		var myImage= results.rows.item(i)['myImage']; 
                          
-                 		alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
-                        $('#AllDataMainDiv').append( results.rows.item(i)['fullname']+"" + results.rows.item(i)['elecconnno']);
+                 		//alert("id.."+id+"fullname.."+fullname+"elecconnno.."+elecconnno+"address.."+address+"optedForMonthlyPayment..."+optedForMonthlyPayment);
+                        $('#AllDataMainDiv').append( results.rows.item(i)['fullname']+"|" + results.rows.item(i)['elecconnno']+ "|" +results.rows.item(i)['aadharno']+"|"+results.rows.item(i)['address']+"|"+results.rows.item(i)['taluka']+"|"+results.rows.item(i)['district']+"|"+results.rows.item(i)['pincode']+"|"+results.rows.item(i)['mobile']+"|"+ results.rows.item(i)['spouse']+"|"+results.rows.item(i)['noOfChildren']+"|"+results.rows.item(i)['gender']+"|"+results.rows.item(i)['age']+"|"+results.rows.item(i)['qualification']+"|"+results.rows.item(i)['noOfLedIssued']+"|"+results.rows.item(i)['recieptNumber']+"|"+results.rows.item(i)['optedForMonthlyPayment']);
                  		
                         /*$('#AllDataMainDiv').html('');
     			   		
