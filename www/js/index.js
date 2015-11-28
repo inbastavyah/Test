@@ -487,6 +487,27 @@ function handleLogin() {
 
 function getDataList(){
   alert("getDataList.....");
+  db.transaction
+  (
+       function (tx){
+            /*tx.executeSql('SELECT fullname,aadharno,address FROM BASEAPP',[],function(tx,results){
+            */
+    	   tx.executeSql('SELECT fullname, elecconnno, aadharno, address, taluka, district, pincode, mobile, spouse, noOfChildren,gender, age, qualification, noOfLedIssued, recieptNumber,optedForMonthlyPayment,myImage FROM BASEAPP',[],function(tx,results){
+    	   var len = results.rows.length;
+    	   alert("len--"+len);
+                    if(len>0){
+                        for (var i = 0; i < len; i++) {
+                         alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
+                           // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
+                        }
+                        //$('#resultList').listview();
+                    }
+                }, errorCB
+            );
+       },errorCB,successCB
+   );
+  alert("getDataList.....2");
+  
 /*	var form = $("#addLogTimeForm");
 	//disable the button so we can't resubmit while we wait
 	
