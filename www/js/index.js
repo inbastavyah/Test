@@ -86,7 +86,6 @@ var appUrl='http://192.168.1.11:8080/';
 var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
 var db;
-var dataObj;
 
 var app = {
     SOME_CONSTANTS : false,  // some constant
@@ -165,7 +164,7 @@ function callSyncWithServer() {
 	                        	//if(results.rows.item(i)['localStatus']=='complete'){
 	                        		//alert("id"+results.rows.item(i)['id']);
 	                        		//var currid=results.rows.item(i)['id'];
-	                        		dataObj={};
+	                        	    var	dataObj={};
 	                        		//dataObj.action='addLogTime';
 	                        		//dataObj.grn_user=grnUserObj;
 	                        		dataObj.id= results.rows.item(i)['id'];
@@ -506,7 +505,7 @@ function getDataList(){
 			$.mobile.changePage('#view-all-data','slide');
 			//navigator.notification.alert(appRequiresWiFi, function() {});
 			  alert("getDataList.....4");
-			$.ajax({
+/*			$.ajax({
 				type : 'POST',
 			   url:appUrl,
 			   data:{action:'BASEAPP',fullname:fullname},
@@ -527,7 +526,7 @@ function getDataList(){
 			        	var taluka=jsonDataObjGlobal["taluka"];
 			        	var district=jsonDataObjGlobal["district"];
 			        	
-			        	/*tbodyObj+='<tr>'+
+			        	tbodyObj+='<tr>'+
 					                 '<td class="order-p-icon">'+
 					                     '<span class="process-icon cm-10">'+
 					                         '<img class="icon-img" src="" id="timer_img_spOrderIdReplace_'+id+'" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
@@ -542,13 +541,13 @@ function getDataList(){
 					                 '</td>'+
 					             '</tr>';
 			   		});
-			   		tbodyObj+='</tbody>';*/
+			   		tbodyObj+='</tbody>';
 			   		$.mobile.changePage('#view-all-data','slide');
 				},
 				
 			});
 			
-	}
+	}*/
 	alert("getDataList.....1");
 }
 
