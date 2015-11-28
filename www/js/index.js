@@ -86,6 +86,7 @@ var appUrl='http://192.168.1.11:8080/';
 var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
 var db;
+var dataObj;
 
 var app = {
     SOME_CONSTANTS : false,  // some constant
@@ -164,7 +165,7 @@ function callSyncWithServer() {
 	                        	//if(results.rows.item(i)['localStatus']=='complete'){
 	                        		//alert("id"+results.rows.item(i)['id']);
 	                        		//var currid=results.rows.item(i)['id'];
-	                        		var dataObj={};
+	                        		dataObj={};
 	                        		//dataObj.action='addLogTime';
 	                        		//dataObj.grn_user=grnUserObj;
 	                        		dataObj.id= results.rows.item(i)['id'];
@@ -487,7 +488,34 @@ function handleLogin() {
 
 function getDataList(){
   alert("getDataList.....");
-	var connectionType=checkConnection();
+	var form = $("#addLogTimeForm");
+	//disable the button so we can't resubmit while we wait
+	
+	var fullname = $("#fullname", form).val();
+	alert("fullname :"+fullname);
+	fullname = "smith";
+	
+	db.transaction
+	  (
+	       function (tx){
+	            /*tx.executeSql('SELECT fullname,aadharno,address FROM BASEAPP',[],function(tx,results){
+	            */
+	    	   tx.executeSql('SELECT fullname, elecconnno, aadharno, address, taluka, district, pincode, mobile, spouse, noOfChildren,gender, age, qualification, noOfLedIssued, recieptNumber,optedForMonthlyPayment,myImage FROM BASEAPP',[],function(tx,results){
+	    	   var len = results.rows.length;
+	    	   alert("len--"+len);
+	                    if(len>0){
+	                        for (var i = 0; i < len; i++) {
+	                           alert(results.rows.item(i)['fullname']+"aadharno"+results.rows.item(i)['aadharno']+"taluka"+results.rows.item(i)['taluka']+"noOfChildren"+results.rows.item(i)['noOfChildren']+"optedForMonthlyPayment"+results.rows.item(i)['optedForMonthlyPayment']);
+	                           // $('#resultList').append('<li><a href="#">' + results.rows.item(i)['timeCats']+ results.rows.item(i)['pid'] + '</a></li>');
+	                        }
+	                        //$('#resultList').listview();
+	                    }
+	                }, errorCB
+	            );
+	       },errorCB,successCB
+	   );
+	
+  var connectionType=checkConnection();
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			$.mobile.changePage('#view-all-data','slide');
 			//navigator.notification.alert(appRequiresWiFi, function() {});
@@ -502,7 +530,7 @@ function getDataList(){
 			$.ajax({
 				type : 'POST',
 			   url:appUrl,
-			   data:{action:'BASEAPP',grn_user:grnUserObj},
+			   data:{action:'BASEAPP',fullname:fullname},
 			   success:function(data){
 			   		alert("success...");
 			   		var responseJson = $.parseJSON(data);
@@ -520,7 +548,7 @@ function getDataList(){
 			        	var taluka=jsonDataObjGlobal["taluka"];
 			        	var district=jsonDataObjGlobal["district"];
 			        	
-			        	tbodyObj+='<tr>'+
+			        	/*tbodyObj+='<tr>'+
 					                 '<td class="order-p-icon">'+
 					                     '<span class="process-icon cm-10">'+
 					                         '<img class="icon-img" src="" id="timer_img_spOrderIdReplace_'+id+'" data-order="spOrderIdReplace" data-timecat="'+fullname+'">'+
@@ -535,7 +563,7 @@ function getDataList(){
 					                 '</td>'+
 					             '</tr>';
 			   		});
-			   		tbodyObj+='</tbody>';
+			   		tbodyObj+='</tbody>';*/
 			   		$.mobile.changePage('#view-all-data','slide');
 				},
 				
