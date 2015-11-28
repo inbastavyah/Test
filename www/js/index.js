@@ -782,7 +782,7 @@ function insertBaseappData(tx) {
 
 //Multiple records
 function getBaseappDataList(){
-	//alert("getBaseappDataList");
+	alert("getBaseappDataList");
   db.transaction
   (
        function (tx){
